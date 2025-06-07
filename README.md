@@ -1,44 +1,44 @@
 # Obsidian Blueprint Renderer Plugin
 
-基于BlueprintUE Self-Hosted Edition的Obsidian插件，用于在Obsidian中渲染Unreal Engine蓝图节点的可视化界面。
+An Obsidian plugin based on BlueprintUE Self-Hosted Edition for rendering Unreal Engine Blueprint nodes as interactive visual diagrams in Obsidian notes.
 
-## 架构说明
+## Architecture Overview
 
-本插件采用**简化架构**，直接基于原始BlueprintUE工程的单文件系统：
+This plugin adopts a **simplified architecture** directly based on the original BlueprintUE project's single-file system:
 
-### 文件结构
+### File Structure
 ```
 obsidian-blueprint-renderer/
-├── main.ts                 # 插件入口，简单包装器 (5KB)
-├── main.js                 # 编译输出 (5.9KB)
+├── main.ts                 # Plugin entry point, simple wrapper (5KB)
+├── main.js                 # Compiled output (5.9KB)
 ├── lib/
-│   ├── render.js           # 原始工程的渲染引擎 (207KB)
-│   └── render.css          # 原始工程的样式表 (113KB)
-├── test-simple.md          # 简单测试文件
-├── README.md               # 项目说明
-├── manifest.json           # Obsidian插件清单
-├── package.json            # 项目配置
-└── esbuild.config.mjs      # 构建配置
+│   ├── render.js           # Original rendering engine (207KB)
+│   └── render.css          # Original stylesheet (113KB)
+├── README.md               # Project documentation
+├── README_zh.md            # Chinese documentation
+├── manifest.json           # Obsidian plugin manifest
+├── package.json            # Project configuration
+└── esbuild.config.mjs      # Build configuration
 ```
 
-### 核心特性
+### Core Features
 
-- ✅ **100%兼容性**：直接使用原始工程的render.js和render.css
-- ✅ **零重构风险**：避免了复杂的TypeScript重构
-- ✅ **完整功能**：支持所有节点类型、连线、交互功能
-- ✅ **轻量级**：main.js仅5.9KB，大幅简化
-- ✅ **易维护**：架构简单，易于理解和维护
+- ✅ **100% Compatibility**: Directly uses original render.js and render.css
+- ✅ **Zero Refactoring Risk**: Avoids complex TypeScript refactoring
+- ✅ **Complete Functionality**: Supports all node types, connections, and interactions
+- ✅ **Lightweight**: main.js is only 5.9KB, significantly simplified
+- ✅ **Easy Maintenance**: Simple architecture, easy to understand and maintain
 
-### 工作原理
+### How It Works
 
-1. **动态加载**：使用fetch加载原始render.js并执行
-2. **全局暴露**：原始工程通过`window.blueprintUE.render.Main`暴露主类
-3. **简单包装**：main.ts创建最小包装器，处理Obsidian集成
-4. **样式隔离**：使用CSS作用域确保不与Obsidian样式冲突
+1. **Dynamic Loading**: Uses fetch to load and execute original render.js
+2. **Global Exposure**: Original project exposes main class via `window.blueprintUE.render.Main`
+3. **Simple Wrapper**: main.ts creates minimal wrapper for Obsidian integration
+4. **Style Isolation**: Uses CSS scoping to ensure no conflicts with Obsidian styles
 
-### 使用方法
+### Usage
 
-在Obsidian中创建代码块：
+Create a code block in Obsidian:
 
 ````markdown
 ```blueprint
@@ -61,53 +61,68 @@ End Object
 ```
 ````
 
-### 构建
+### Build
 
 ```bash
 npm install
 npm run build
 ```
 
-### 技术优势
+## License and Attribution
 
-相比之前的复杂TypeScript架构：
+### Plugin License
+This plugin is released under the MIT License.
 
-| 方面 | 之前架构 | 新架构 |
-|------|----------|--------|
-| 文件数量 | 15+ TypeScript模块 | 1个main.ts + 原始文件 |
-| main.js大小 | 120KB | 5.9KB |
-| 兼容性风险 | 高（重构风险） | 零（直接使用原始代码） |
-| 维护复杂度 | 高 | 低 |
-| 功能完整性 | 需要逐个实现 | 100%完整 |
+### Third-Party Component Attribution
+This plugin uses rendering engine code from the [BlueprintUE Self-Hosted Edition](https://github.com/blueprintue/blueprintue-self-hosted-edition) project:
 
-### 开发历程
+- `lib/render.js` - Blueprint rendering engine
+- `lib/render.css` - Blueprint stylesheet
 
-详细的开发过程记录在`.tasks/2025-01-14_1_obsidian-plugin-analysis.md`中，包含：
-- 完整的研究分析
-- 多种方案的创新构思
-- 详细的技术规划
-- 逐步的执行日志
+**Original Project Information:**
+- Project: BlueprintUE Self-Hosted Edition
+- Repository: https://github.com/blueprintue/blueprintue-self-hosted-edition
+- License: MIT License
+- Copyright: © BlueprintUE Contributors
 
-这个项目展示了"简单即是美"的设计哲学，通过直接复用成熟的原始工程，实现了最佳的效果。
+According to MIT license terms, we have retained the original copyright notice and explicitly attributed it here. Thanks to the BlueprintUE project team for providing the excellent rendering engine.
 
-## 许可证和归属
+### Compatibility Statement
+This project is fully compatible with and complies with the MIT license terms of the BlueprintUE Self-Hosted Edition project. All used code has been properly attributed and maintains the original license requirements.
 
-### 本插件许可证
-本插件采用MIT许可证发布。
+## Installation
 
-### 第三方组件归属
-本插件使用了来自 [BlueprintUE Self-Hosted Edition](https://github.com/blueprintue/blueprintue-self-hosted-edition) 项目的渲染引擎代码：
+### From Obsidian Community Plugins (Recommended)
+1. Open Obsidian Settings
+2. Go to Community Plugins
+3. Search for "Blueprint Renderer"
+4. Install and enable the plugin
 
-- `lib/render.js` - 蓝图渲染引擎
-- `lib/render.css` - 蓝图样式表
+### Manual Installation
+1. Download the latest release from GitHub
+2. Extract the files to your vault's `.obsidian/plugins/obsidian-blueprint-renderer/` directory
+3. Reload Obsidian
+4. Enable the plugin in Community Plugins settings
 
-**原始项目信息：**
-- 项目：BlueprintUE Self-Hosted Edition
-- 仓库：https://github.com/blueprintue/blueprintue-self-hosted-edition
-- 许可证：MIT License
-- 版权：© BlueprintUE Contributors
+### Using BRAT (Beta)
+1. Install the BRAT plugin
+2. Add this repository: `goderyu/obsidian-blueprint-renderer`
+3. Enable the plugin
 
-根据MIT许可证条款，我们保留了原始版权声明，并在此明确归属。感谢BlueprintUE项目团队提供的优秀渲染引擎。
+## Support
 
-### 兼容性声明
-本项目完全兼容并遵守BlueprintUE Self-Hosted Edition项目的MIT许可证条款。所有使用的代码均已正确归属，并保持了原始许可证要求。 
+- **Issues**: Report bugs on [GitHub Issues](https://github.com/goderyu/obsidian-blueprint-renderer/issues)
+- **Discussions**: Join discussions on [GitHub Discussions](https://github.com/goderyu/obsidian-blueprint-renderer/discussions)
+- **Documentation**: See [README_zh.md](README_zh.md) for Chinese documentation
+
+## Contributing
+
+Contributions are welcome! Please read our contributing guidelines and submit pull requests for any improvements.
+
+## Changelog
+
+### v1.0.0
+- Initial release
+- Complete Blueprint node rendering support
+- Dynamic CSS and JS loading
+- Full compatibility with BlueprintUE Self-Hosted Edition 

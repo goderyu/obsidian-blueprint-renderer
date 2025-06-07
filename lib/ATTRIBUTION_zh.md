@@ -1,26 +1,20 @@
-# Third-Party Code Attribution
+# 第三方代码归属声明
 
-This directory contains code from third-party projects. Below is the detailed attribution information:
+本目录包含来自第三方项目的代码文件。
 
 ## BlueprintUE Self-Hosted Edition
 
-**Files:**
-- `render.js` - Blueprint rendering engine
-- `render.css` - Blueprint stylesheet
+### 文件来源
+- `render.js` - 蓝图渲染引擎核心代码
+- `render.css` - 蓝图渲染样式表
 
-**Source Project:**
-- Project Name: BlueprintUE Self-Hosted Edition
-- Repository: https://github.com/blueprintue/blueprintue-self-hosted-edition
-- License: MIT License
-- Copyright: © BlueprintUE Contributors
+### 原始项目信息
+- **项目名称**: BlueprintUE Self-Hosted Edition
+- **GitHub仓库**: https://github.com/blueprintue/blueprintue-self-hosted-edition
+- **许可证**: MIT License
+- **版权所有**: © BlueprintUE Contributors
 
-**Usage:**
-These files are used directly without modification to provide complete Blueprint rendering functionality in the Obsidian plugin.
-
----
-
-## MIT License (Original Project)
-
+### 许可证文本
 ```
 MIT License
 
@@ -45,17 +39,12 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 ```
 
----
+### 使用说明
+这些文件按照MIT许可证的条款使用，未进行修改，保持了原始功能和接口。我们感谢BlueprintUE项目团队提供的优秀渲染引擎，使得本Obsidian插件能够提供完整的蓝图可视化功能。
 
-## Compliance Statement
-
-This plugin complies with all license requirements:
-
-1. **Original Copyright Notice**: Retained and displayed prominently
-2. **License Text**: Full MIT license text included
-3. **Attribution**: Clear attribution to original authors
-4. **No Warranty Disclaimer**: Original warranty disclaimers preserved
-
-## Acknowledgments
-
-We thank the BlueprintUE project team for creating and maintaining the excellent Blueprint rendering engine that makes this Obsidian plugin possible. 
+### 更新信息
+- **获取时间**: 2025-01-14
+- **原始版本**: 基于blueprintue-self-hosted-edition主分支
+- **文件路径**: 
+  - 原始: `www/bue-render/render.js`
+  - 原始: `www/bue-render/render.css` 
