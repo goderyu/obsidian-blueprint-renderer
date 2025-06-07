@@ -6,21 +6,6 @@ An Obsidian plugin based on BlueprintUE Self-Hosted Edition for rendering Unreal
 
 This plugin adopts a **simplified architecture** directly based on the original BlueprintUE project's single-file system:
 
-### File Structure
-```
-obsidian-blueprint-renderer/
-├── main.ts                 # Plugin entry point, simple wrapper (5KB)
-├── main.js                 # Compiled output (5.9KB)
-├── lib/
-│   ├── render.js           # Original rendering engine (207KB)
-│   └── render.css          # Original stylesheet (113KB)
-├── README.md               # Project documentation
-├── README_zh.md            # Chinese documentation
-├── manifest.json           # Obsidian plugin manifest
-├── package.json            # Project configuration
-└── esbuild.config.mjs      # Build configuration
-```
-
 ### Core Features
 
 - ✅ **100% Compatibility**: Directly uses original render.js and render.css
@@ -119,10 +104,14 @@ This project is fully compatible with and complies with the MIT license terms of
 
 Contributions are welcome! Please read our contributing guidelines and submit pull requests for any improvements.
 
-## Changelog
+## Mobile Support
 
-### v1.0.0
-- Initial release
-- Complete Blueprint node rendering support
-- Dynamic CSS and JS loading
-- Full compatibility with BlueprintUE Self-Hosted Edition 
+### Mobile Limitations
+
+- There is currently a certain conflict between the chart interaction on the mobile end and the original interaction of Obsidian.
+
+## Support
+
+If you find this plugin useful and would like to support its development, you can support me on Ko-fi.
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/goderyu)

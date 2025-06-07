@@ -6,19 +6,6 @@
 
 本插件采用**简化架构**，直接基于原始BlueprintUE工程的单文件系统：
 
-### 文件结构
-```
-obsidian-blueprint-renderer/
-├── main.ts                 # 插件入口，简单包装器 (5KB)
-├── main.js                 # 编译输出 (5.9KB)
-├── lib/
-│   ├── render.js           # 原始工程的渲染引擎 (207KB)
-│   └── render.css          # 原始工程的样式表 (113KB)
-├── README.md               # 项目说明
-├── manifest.json           # Obsidian插件清单
-├── package.json            # 项目配置
-└── esbuild.config.mjs      # 构建配置
-```
 
 ### 核心特性
 
@@ -87,4 +74,18 @@ npm run build
 根据MIT许可证条款，我们保留了原始版权声明，并在此明确归属。感谢BlueprintUE项目团队提供的优秀渲染引擎。
 
 ### 兼容性声明
+
 本项目完全兼容并遵守BlueprintUE Self-Hosted Edition项目的MIT许可证条款。所有使用的代码均已正确归属，并保持了原始许可证要求。 
+
+## 移动端支持
+
+### 移动端限制
+
+- 移动端目前图表交互和Obsidian原始交互会有一定冲突
+
+
+## 捐助
+
+如果您觉得此插件有用，并希望支持其开发，您可以在 Ko-fi 上支持我。
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/goderyu)
