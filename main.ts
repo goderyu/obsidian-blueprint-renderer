@@ -15,6 +15,10 @@
 
 import { Plugin } from 'obsidian';
 
+// 导入render.js作为文本
+// @ts-ignore - esbuild will handle this as text import
+import renderJsCode from './lib/render.js';
+
 // 声明原始工程的全局对象
 // Global object declaration from BlueprintUE Self-Hosted Edition
 declare global {
@@ -27,163 +31,108 @@ declare global {
     }
 }
 
-export default class BlueprintPlugin extends Plugin {
-	private renderers: Map<HTMLElement, any> = new Map();
+// 渲染器实例映射
+const rendererInstances = new Map<string, any>();
 
+export default class ObsidianBlueprintRenderer extends Plugin {
 	async onload() {
-		console.log('Loading Blueprint Plugin...');
+		console.log('Loading Obsidian Blueprint Renderer Plugin');
 		
-		// 动态加载原始工程的CSS和JS
-		await this.loadRenderAssets();
+		// 执行render.js代码来初始化BlueprintUE
+		this.initializeBlueprintUE();
 		
-		// 注册蓝图代码块处理器
+		// 注册代码块处理器
 		this.registerMarkdownCodeBlockProcessor('blueprint', (source, el, ctx) => {
-			this.renderBlueprint(source, el);
+			this.renderBlueprint(source, el, ctx);
 		});
 		
-		console.log('Blueprint Plugin loaded successfully');
+		console.log('Obsidian Blueprint Renderer Plugin loaded successfully');
 	}
 
 	onunload() {
-		console.log('Unloading Blueprint Plugin...');
+		console.log('Unloading Obsidian Blueprint Renderer Plugin');
 		
-		// 清理所有渲染器
-		this.renderers.forEach((renderer, element) => {
+		// 清理所有渲染器实例
+		rendererInstances.forEach((renderer, key) => {
 			try {
 				if (renderer && typeof renderer.stop === 'function') {
 					renderer.stop();
 				}
 			} catch (error) {
-				console.error('Error stopping renderer:', error);
+				console.error(`Error stopping renderer ${key}:`, error);
 			}
 		});
-		this.renderers.clear();
+		rendererInstances.clear();
 		
-		// 清理动态加载的样式
-		const existingStyle = document.getElementById('blueprint-render-css');
-		if (existingStyle) {
-			existingStyle.remove();
-		}
+		console.log('Obsidian Blueprint Renderer Plugin unloaded');
 	}
 
-	private async loadRenderAssets(): Promise<void> {
-		return new Promise(async (resolve, reject) => {
-			try {
-				const adapter = this.app.vault.adapter;
-				const pluginPath = `${this.app.vault.configDir}/plugins/${this.manifest.id}`;
-				
-				// 1. 加载CSS
-				await this.loadRenderCSS(adapter, pluginPath);
-				
-				// 2. 加载JS
-				await this.loadRenderScript(adapter, pluginPath);
-				
-				resolve();
-			} catch (error) {
-				console.error('Failed to load render assets:', error);
-				reject(error);
+	/**
+	 * 初始化BlueprintUE渲染引擎
+	 */
+	private initializeBlueprintUE() {
+		try {
+			// 执行render.js代码
+			const script = new Function(renderJsCode);
+			script();
+			
+			// 验证BlueprintUE是否正确初始化
+			if (!window.blueprintUE || !window.blueprintUE.render || !window.blueprintUE.render.Main) {
+				throw new Error('BlueprintUE render engine failed to initialize');
 			}
-		});
+			
+			console.log('BlueprintUE render engine initialized successfully');
+		} catch (error) {
+			console.error('Failed to initialize BlueprintUE render engine:', error);
+			throw error;
+		}
 	}
 
-	private async loadRenderCSS(adapter: any, pluginPath: string): Promise<void> {
-		// 检查是否已经加载
-		if (document.getElementById('blueprint-render-css')) {
-			return;
-		}
-
-		const renderCssPath = `${pluginPath}/lib/render.css`;
-		console.log('Loading render.css from:', renderCssPath);
+	/**
+	 * 渲染蓝图代码块
+	 */
+	private renderBlueprint(source: string, el: HTMLElement, ctx: any) {
+		// 生成唯一ID
+		const rendererId = `blueprint-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 		
 		try {
-			const cssContent = await adapter.read(renderCssPath);
-			
-			// 创建style元素并添加到head
-			const style = document.createElement('style');
-			style.id = 'blueprint-render-css';
-			style.textContent = cssContent;
-			document.head.appendChild(style);
-			
-			console.log('Blueprint render CSS loaded successfully');
-		} catch (error) {
-			console.error('Failed to load render.css:', error);
-			throw new Error(`Failed to load blueprint render CSS: ${error.message}`);
-		}
-	}
-
-	private async loadRenderScript(adapter: any, pluginPath: string): Promise<void> {
-		// 检查是否已经加载
-		if (window.blueprintUE?.render?.Main) {
-			return;
-		}
-
-		const renderJsPath = `${pluginPath}/lib/render.js`;
-		console.log('Loading render.js from:', renderJsPath);
-		
-		try {
-			const scriptContent = await adapter.read(renderJsPath);
-			
-			// 创建script元素并执行
-			const script = document.createElement('script');
-			script.textContent = scriptContent;
-			document.head.appendChild(script);
-			
-			if (window.blueprintUE?.render?.Main) {
-				console.log('Blueprint render script loaded successfully');
-			} else {
-				throw new Error('Blueprint render script loaded but Main class not found');
-			}
-		} catch (error) {
-			console.error('Failed to load render.js:', error);
-			throw new Error(`Failed to load blueprint render script: ${error.message}`);
-		}
-	}
-
-	private renderBlueprint(source: string, container: HTMLElement): void {
-		try {
-			// 清理容器
-			container.empty();
+			// 清理元素内容
+			el.empty();
 			
 			// 创建渲染容器
-			const renderContainer = container.createDiv({
-				cls: 'blueprint-render-container'
+			const container = el.createDiv({
+				cls: 'blueprint-renderer-container',
+				attr: {
+					'data-renderer-id': rendererId
+				}
 			});
 			
 			// 设置容器样式
-			renderContainer.style.cssText = `
-				width: 100%;
-				height: 600px;
-				border: 1px solid var(--background-modifier-border);
-				border-radius: 6px;
-				overflow: hidden;
-				background: var(--background-primary);
-			`;
+			container.style.width = '100%';
+			container.style.minHeight = '400px';
+			container.style.border = '1px solid var(--background-modifier-border)';
+			container.style.borderRadius = '4px';
+			container.style.overflow = 'hidden';
 			
-			// 使用原始工程的Main类进行渲染
-			if (!window.blueprintUE?.render?.Main) {
-				renderContainer.createDiv({
-					text: 'Blueprint renderer not loaded. Please reload the plugin.',
-					cls: 'blueprint-error'
-				});
-				return;
-			}
-			
-			// 初始化渲染器
+			// 创建渲染器实例
 			const renderer = new window.blueprintUE.render.Main(
 				source.trim(),
-				renderContainer,
+				container,
 				{
-					height: '600px',
+					height: '400px',
 					type: 'blueprint'
 				}
 			);
 			
-			// 启动渲染
+			// 存储渲染器实例
+			rendererInstances.set(rendererId, renderer);
+			
+			// 启动渲染器
 			renderer.start((success: boolean, error: any) => {
 				if (!success) {
 					console.error('Blueprint rendering failed:', error);
-					renderContainer.empty();
-					renderContainer.createDiv({
+					container.empty();
+					container.createDiv({
 						text: `Blueprint rendering failed: ${error?.displayedMessage || error?.message || 'Unknown error'}`,
 						cls: 'blueprint-error'
 					});
@@ -192,13 +141,10 @@ export default class BlueprintPlugin extends Plugin {
 				}
 			});
 			
-			// 保存渲染器引用以便清理
-			this.renderers.set(renderContainer, renderer);
-			
 		} catch (error) {
-			console.error('Error rendering blueprint:', error);
-			container.empty();
-			container.createDiv({
+			console.error('Error creating blueprint renderer:', error);
+			el.empty();
+			el.createDiv({
 				text: `Error: ${error.message}`,
 				cls: 'blueprint-error'
 			});

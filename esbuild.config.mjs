@@ -1,7 +1,7 @@
 import esbuild from "esbuild";
 import process from "process";
 import builtins from "builtin-modules";
-import { copyFileSync, mkdirSync, existsSync } from "fs";
+import { copyFileSync, existsSync } from "fs";
 
 const banner =
 `/*
@@ -39,30 +39,30 @@ const context = await esbuild.context({
 	sourcemap: prod ? false : 'inline',
 	treeShaking: true,
 	outfile: 'main.js',
+	loader: {
+		'.js': 'text',  // 将.js文件作为文本导入
+	},
+	plugins: [
+		{
+			name: 'copy-render-css',
+			setup(build) {
+				build.onEnd(() => {
+					// 复制render.css为style.css
+					if (existsSync('lib/render.css')) {
+						copyFileSync('lib/render.css', 'styles.css');
+						console.log('✓ Copied lib/render.css to styles.css');
+					} else {
+						console.warn('⚠ lib/render.css not found');
+					}
+				});
+			}
+		}
+	]
 });
-
-// 复制lib目录中的文件
-function copyLibFiles() {
-	if (!existsSync('lib')) {
-		console.log('lib directory not found, skipping copy');
-		return;
-	}
-	
-	console.log('Copying lib files...');
-	try {
-		copyFileSync('lib/render.js', 'lib/render.js');
-		copyFileSync('lib/render.css', 'lib/render.css');
-		console.log('lib files copied successfully');
-	} catch (error) {
-		console.error('Error copying lib files:', error);
-	}
-}
 
 if (prod) {
 	await context.rebuild();
-	copyLibFiles();
-	process.exit(0);
+	await context.dispose();
 } else {
 	await context.watch();
-	copyLibFiles();
 } 
