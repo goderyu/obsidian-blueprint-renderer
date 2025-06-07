@@ -3,7 +3,7 @@
 	"name": "Blueprint Renderer",
 	"version": "1.0.0",
 	"minAppVersion": "0.15.0",
-	"description": "Render Unreal Engine Blueprint nodes as interactive visual diagrams in Obsidian notes",
+	"description": "Render Unreal Engine Blueprint nodes as interactive visual diagrams in Obsidian notes. Uses BlueprintUE Self-Hosted Edition rendering engine.",
 	"author": "goderyu",
 	"authorUrl": "https://github.com/goderyu",
 	"fundingUrl": "https://ko-fi.com/goderyu",

@@ -88,4 +88,26 @@ npm run build
 - 详细的技术规划
 - 逐步的执行日志
 
-这个项目展示了"简单即是美"的设计哲学，通过直接复用成熟的原始工程，实现了最佳的效果。 
+这个项目展示了"简单即是美"的设计哲学，通过直接复用成熟的原始工程，实现了最佳的效果。
+
+## 许可证和归属
+
+### 本插件许可证
+本插件采用MIT许可证发布。
+
+### 第三方组件归属
+本插件使用了来自 [BlueprintUE Self-Hosted Edition](https://github.com/blueprintue/blueprintue-self-hosted-edition) 项目的渲染引擎代码：
+
+- `lib/render.js` - 蓝图渲染引擎
+- `lib/render.css` - 蓝图样式表
+
+**原始项目信息：**
+- 项目：BlueprintUE Self-Hosted Edition
+- 仓库：https://github.com/blueprintue/blueprintue-self-hosted-edition
+- 许可证：MIT License
+- 版权：© BlueprintUE Contributors
+
+根据MIT许可证条款，我们保留了原始版权声明，并在此明确归属。感谢BlueprintUE项目团队提供的优秀渲染引擎。
+
+### 兼容性声明
+本项目完全兼容并遵守BlueprintUE Self-Hosted Edition项目的MIT许可证条款。所有使用的代码均已正确归属，并保持了原始许可证要求。 

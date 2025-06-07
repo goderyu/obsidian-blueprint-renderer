@@ -1,6 +1,22 @@
+/**
+ * Obsidian Blueprint Renderer Plugin
+ * 
+ * This plugin renders Unreal Engine Blueprint nodes as interactive visual diagrams in Obsidian.
+ * 
+ * @license MIT
+ * @author goderyu
+ * 
+ * Third-party components:
+ * - lib/render.js and lib/render.css are from BlueprintUE Self-Hosted Edition
+ * - Original project: https://github.com/blueprintue/blueprintue-self-hosted-edition
+ * - License: MIT License
+ * - Copyright: © BlueprintUE Contributors
+ */
+
 import { Plugin } from 'obsidian';
 
 // 声明原始工程的全局对象
+// Global object declaration from BlueprintUE Self-Hosted Edition
 declare global {
     interface Window {
         blueprintUE: {
