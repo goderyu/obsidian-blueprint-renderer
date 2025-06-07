@@ -1,0 +1,11 @@
+{
+	"id": "obsidian-blueprint-renderer",
+	"name": "Blueprint Renderer",
+	"version": "1.0.0",
+	"minAppVersion": "0.15.0",
+	"description": "Render Unreal Engine Blueprint nodes as interactive visual diagrams in Obsidian notes",
+	"author": "goderyu",
+	"authorUrl": "https://github.com/goderyu",
+	"fundingUrl": "https://ko-fi.com/goderyu",
+	"isDesktopOnly": false
+} 

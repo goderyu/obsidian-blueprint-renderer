@@ -1,0 +1,20 @@
+# Intellij
+*.iml
+.idea
+
+# npm
+node_modules
+main.js
+yarn.lock
+package-lock.json
+
+# build
+*.js.map
+
+.prettierignore
+/data.json
+
+.vscode
+.cursor
+
+.DS_Store
