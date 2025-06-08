@@ -1,0 +1,9 @@
+/* Obsidian Blueprint Renderer Plugin Styles */
+
+.blueprint-container {
+	width: 100%;
+	min-height: 400px;
+	border: 1px solid var(--background-modifier-border);
+	border-radius: 4px;
+	overflow: hidden;
+} 

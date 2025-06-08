@@ -1,7 +1,8 @@
 import esbuild from "esbuild";
 import process from "process";
 import builtins from "builtin-modules";
-import { copyFileSync, existsSync } from "fs";
+import { copyFileSync, existsSync, readFileSync, writeFileSync } from "fs";
+import { join } from "path";
 
 const banner =
 `/*
@@ -11,6 +12,26 @@ if you want to view the source, please visit the github repository of this plugi
 `;
 
 const prod = (process.argv[2] === 'production');
+
+// 合并CSS文件的函数
+function mergeCSS() {
+	try {
+		// 读取插件样式
+		const pluginStyles = readFileSync('plugin-styles.css', 'utf8');
+		// 读取渲染器样式
+		const renderStyles = readFileSync('lib/render.css', 'utf8');
+		
+		// 合并CSS内容
+		const mergedCSS = `/* Plugin Styles */\n${pluginStyles}\n\n/* Renderer Styles */\n${renderStyles}`;
+		
+		// 写入到styles.css
+		writeFileSync('styles.css', mergedCSS);
+		console.log('✅ CSS files merged successfully');
+	} catch (error) {
+		console.error('❌ Error merging CSS files:', error);
+		process.exit(1);
+	}
+}
 
 const context = await esbuild.context({
 	banner: {
@@ -44,16 +65,10 @@ const context = await esbuild.context({
 	},
 	plugins: [
 		{
-			name: 'copy-render-css',
+			name: 'merge-css',
 			setup(build) {
 				build.onEnd(() => {
-					// 复制render.css为style.css
-					if (existsSync('lib/render.css')) {
-						copyFileSync('lib/render.css', 'styles.css');
-						console.log('✓ Copied lib/render.css to styles.css');
-					} else {
-						console.warn('⚠ lib/render.css not found');
-					}
+					mergeCSS();
 				});
 			}
 		}

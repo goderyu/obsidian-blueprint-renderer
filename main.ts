@@ -100,19 +100,8 @@ export default class ObsidianBlueprintRenderer extends Plugin {
 			el.empty();
 			
 			// 创建渲染容器
-			const container = el.createDiv({
-				cls: 'blueprint-renderer-container',
-				attr: {
-					'data-renderer-id': rendererId
-				}
-			});
-			
-			// 设置容器样式
-			container.style.width = '100%';
-			container.style.minHeight = '400px';
-			container.style.border = '1px solid var(--background-modifier-border)';
-			container.style.borderRadius = '4px';
-			container.style.overflow = 'hidden';
+			const container = el.createDiv();
+			container.addClass('blueprint-container');
 			
 			// 创建渲染器实例
 			const renderer = new window.blueprintUE.render.Main(

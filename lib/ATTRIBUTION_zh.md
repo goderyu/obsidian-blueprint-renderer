@@ -43,7 +43,7 @@ SOFTWARE.
 这些文件按照MIT许可证的条款使用，未进行修改，保持了原始功能和接口。我们感谢BlueprintUE项目团队提供的优秀渲染引擎，使得本Obsidian插件能够提供完整的蓝图可视化功能。
 
 ### 更新信息
-- **获取时间**: 2025-01-14
+- **获取时间**: 2025-06-06
 - **原始版本**: 基于blueprintue-self-hosted-edition主分支
 - **文件路径**: 
   - 原始: `www/bue-render/render.js`
