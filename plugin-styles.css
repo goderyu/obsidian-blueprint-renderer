@@ -1,9 +1,11 @@
 /* Obsidian Blueprint Renderer Plugin Styles */
 
 .blueprint-container {
+	position: relative;
 	width: 100%;
-	min-height: 400px;
+	height: 400px;
 	border: 1px solid var(--background-modifier-border);
 	border-radius: 4px;
 	overflow: hidden;
+	background-color: #a6a6a6;
 } 
