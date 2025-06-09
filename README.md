@@ -1,6 +1,12 @@
-# Obsidian Blueprint Renderer Plugin
+# Obsidian Blueprint Renderer
 
-An Obsidian plugin based on BlueprintUE Self-Hosted Edition for rendering Unreal Engine Blueprint nodes as interactive visual diagrams in Obsidian notes.
+> How can I record my UE blueprint code in Markdown notes? Taking a screenshot is very troublesome. Can't I just copy the blueprint code and paste it in a code block, and then render it as a blueprint diagram?
+
+OK, you can now!
+
+![Preview](https://raw.githubusercontent.com/goderyu/obsidian-blueprint-renderer/refs/heads/main/resources/preview.gif)
+
+This is an Obsidian plugin based on BlueprintUE Self-Hosted Edition for rendering Unreal Engine Blueprint nodes as interactive visual diagrams in Obsidian notes.
 
 ## Architecture Overview
 

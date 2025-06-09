@@ -1,6 +1,12 @@
-# Obsidian Blueprint Renderer Plugin
+# Obsidian Blueprint Renderer
 
-基于BlueprintUE Self-Hosted Edition的Obsidian插件，用于在Obsidian中渲染Unreal Engine蓝图节点的可视化界面。
+> 我该如何在Markdown笔记中记录我的UE蓝图代码？截一张图很麻烦，就不能将蓝图代码复制过来粘贴在代码块中，然后渲染成蓝图图表吗？
+
+好的，现在你可以了
+
+![Preview](https://raw.githubusercontent.com/goderyu/obsidian-blueprint-renderer/refs/heads/main/resources/preview.gif)
+
+这是一个用于在Obsidian中渲染Unreal Engine蓝图节点可视化界面的插件。
 
 ## 架构说明
 
