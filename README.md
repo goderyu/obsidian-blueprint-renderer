@@ -1,4 +1,4 @@
-# Obsidian Blueprint Renderer
+# Blueprint Renderer
 
 > How can I record my UE blueprint code in Markdown notes? Taking a screenshot is very troublesome. Can't I just copy the blueprint code and paste it in a code block, and then render it as a blueprint diagram?
 
@@ -17,7 +17,6 @@ This plugin adopts a **simplified architecture** directly based on the original 
 - ✅ **100% Compatibility**: Directly uses original render.js and render.css
 - ✅ **Zero Refactoring Risk**: Avoids complex TypeScript refactoring
 - ✅ **Complete Functionality**: Supports all node types, connections, and interactions
-- ✅ **Lightweight**: main.js is only 5.9KB, significantly simplified
 - ✅ **Easy Maintenance**: Simple architecture, easy to understand and maintain
 
 ### How It Works
