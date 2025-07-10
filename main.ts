@@ -34,9 +34,7 @@ declare global {
 
 
 export default class ObsidianBlueprintRenderer extends Plugin {
-	renderers: Map<string, MarkdownBlueprintRender>
 	async onload() {
-		this.renderers = new Map
 		// 执行render.js代码来初始化BlueprintUE
 		this.initializeBlueprintUE();
 
@@ -47,11 +45,6 @@ export default class ObsidianBlueprintRenderer extends Plugin {
 	}
 
 	onunload() {
-		this.renderers.forEach((render: MarkdownBlueprintRender) => {
-			render.unload()
-		})
-		this.renderers.clear();
-
 		if (window.blueprintUE) {
 			delete window.blueprintUE
 		}
@@ -85,12 +78,7 @@ export default class ObsidianBlueprintRenderer extends Plugin {
 		const rendererId = `blueprint-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`;
 		// 创建RenderChild
 		let blueprintRenderer = new MarkdownBlueprintRender(el, source, rendererId)
-		blueprintRenderer.register(() => {
-			this.renderers.delete(blueprintRenderer.id)
-		})
 		ctx.addChild(blueprintRenderer)
-		// 存储渲染器实例
-		this.renderers.set(rendererId, blueprintRenderer);
 	}
 }
 
@@ -151,7 +139,6 @@ export class MarkdownBlueprintRender extends MarkdownRenderChild {
 		try {
 			if (this.renderer && typeof this.renderer.stop === 'function') {
 				this.renderer.stop();
-				console.debug("Blueprint Renderer onunload")
 			}
 		} catch (error) {
 			console.error(`Error stopping renderer:`, error);
