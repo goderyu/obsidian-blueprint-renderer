@@ -8,7 +8,7 @@
 	border-radius: 4px;
 	overflow: hidden;
 	background-color: #a6a6a6;
-	resize: vertical;
+	/* 移除原生resize功能 */
 }
 
 /* 确保bue-render填充满容器 */
@@ -22,20 +22,70 @@
 	height: 100% !important;
 }
 
-/* 拖拽调整手柄样式 - 仅垂直调整 */
+/* 拖拽调整手柄样式 - UE蓝图风格 */
 .blueprint-resize-handle {
 	position: absolute;
-	bottom: 0;
+	bottom: -2px;
 	left: 50%;
 	transform: translateX(-50%);
-	width: 40px;
-	height: 8px;
-	background: linear-gradient(90deg, transparent 0%, transparent 20%, var(--background-modifier-border) 20%, var(--background-modifier-border) 80%, transparent 80%, transparent 100%);
+	width: 80px;
+	height: 12px;
+	background: linear-gradient(135deg, #2a2a2a 0%, #404040 50%, #2a2a2a 100%);
+	border: 1px solid #555;
+	border-radius: 6px;
 	cursor: ns-resize;
-	z-index: 10;
-	border-radius: 4px 4px 0 0;
+	z-index: 20;
+	opacity: 0;
+	transition: opacity 0.2s ease-in-out, transform 0.2s ease-in-out;
+	box-shadow: 0 2px 8px rgba(0, 0, 0, 0.3);
 }
 
+/* 添加小圆点装饰，模仿UE风格 */
+.blueprint-resize-handle::before {
+	content: '';
+	position: absolute;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	width: 32px;
+	height: 3px;
+	background: repeating-linear-gradient(
+		90deg,
+		#6a6a6a 0px,
+		#6a6a6a 2px,
+		transparent 2px,
+		transparent 4px
+	);
+	border-radius: 2px;
+}
+
+/* 容器悬停时显示拖拽手柄 */
+.blueprint-container:hover .blueprint-resize-handle {
+	opacity: 1;
+	transform: translateX(-50%) translateY(-2px);
+}
+
+/* 拖拽手柄悬停效果 */
 .blueprint-resize-handle:hover {
-	background: linear-gradient(90deg, transparent 0%, transparent 20%, var(--interactive-accent) 20%, var(--interactive-accent) 80%, transparent 80%, transparent 100%);
+	background: linear-gradient(135deg, #4a8cc7 0%, #6bb6ff 50%, #4a8cc7 100%);
+	border-color: #6bb6ff;
+	box-shadow: 0 3px 12px rgba(75, 140, 199, 0.4);
+}
+
+.blueprint-resize-handle:hover::before {
+	background: repeating-linear-gradient(
+		90deg,
+		#ffffff 0px,
+		#ffffff 2px,
+		transparent 2px,
+		transparent 4px
+	);
+}
+
+/* 拖拽激活状态 */
+.blueprint-resize-handle.active {
+	opacity: 1;
+	background: linear-gradient(135deg, #4a8cc7 0%, #6bb6ff 50%, #4a8cc7 100%);
+	border-color: #6bb6ff;
+	transform: translateX(-50%) translateY(-3px);
 } 

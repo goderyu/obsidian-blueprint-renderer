@@ -198,6 +198,9 @@ export class MarkdownBlueprintRender extends MarkdownRenderChild {
 			startY = e.clientY;
 			startHeight = parseInt(getComputedStyle(container, null).getPropertyValue('height'));
 			
+			// 添加激活状态
+			resizeHandle.addClass('active');
+			
 			document.addEventListener('mousemove', onMouseMove);
 			document.addEventListener('mouseup', onMouseUp);
 			e.preventDefault();
@@ -217,6 +220,10 @@ export class MarkdownBlueprintRender extends MarkdownRenderChild {
 		const onMouseUp = () => {
 			if (isResizing) {
 				isResizing = false;
+				
+				// 移除激活状态
+				resizeHandle.removeClass('active');
+				
 				document.removeEventListener('mousemove', onMouseMove);
 				document.removeEventListener('mouseup', onMouseUp);
 				
