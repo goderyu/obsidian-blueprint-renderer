@@ -117,6 +117,8 @@ Contributions are welcome! Please read our contributing guidelines and submit pu
 
 ## Support
 
-If you find this plugin useful and would like to support its development, you can support me on Ko-fi.
+If you find this plugin useful and would like to support its development, you can support me.
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/goderyu)
+
+<a href="https://www.buymeacoffee.com/goderyu" target="_blank"><img src="https://cdn.buymeacoffee.com/buttons/v2/default-blue.png" alt="Buy Me A Coffee" style="height: 60px !important;width: 217px !important;" ></a>
